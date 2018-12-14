@@ -14,21 +14,21 @@
 #include <vector>
 #include <assert.h>
 
-const char* string_format(std::string& str, const char* szFormat, ...)
-{
-	if (!szFormat)
-		return nullptr;
-	va_list argList;
-	va_start(argList, szFormat);
-
-	int nLength = _vscprintf(szFormat, argList);
-	str.resize(nLength);
-
-	vsprintf_s(&(str[0]), nLength + 1, szFormat, argList);
-	va_end(argList);
-
-	return str.c_str();
-}
+//const char* string_format(std::string& str, const char* szFormat, ...)
+//{
+//	if (!szFormat)
+//		return nullptr;
+//	va_list argList;
+//	va_start(argList, szFormat);
+//
+//	int nLength = _vscprintf(szFormat, argList);
+//	str.resize(nLength);
+//
+//	vsprintf_s(&(str[0]), nLength + 1, szFormat, argList);
+//	va_end(argList);
+//
+//	return str.c_str();
+//}
 
 /// mrbigarraymtty
 template<typename TArrayType>
@@ -56,6 +56,7 @@ public:
 public:
 	void Clear();
 public:
+	static const char* string_format(std::string& str, const char* szFormat, ...);
 	bool IsLoadRange(int l, int r);
 	bool LoadRange(int l, int r);
 	ValType* GetInCache(int x);
@@ -110,6 +111,24 @@ inline xdbarrfsmt<TArrayType>::~xdbarrfsmt()
 {
 
 }
+
+template<typename TArrayType>
+const char* xdbarrfsmt<TArrayType>::string_format(std::string& str, const char* szFormat, ...)
+{
+	if (!szFormat)
+		return nullptr;
+	va_list argList;
+	va_start(argList, szFormat);
+
+	int nLength = _vscprintf(szFormat, argList);
+	str.resize(nLength);
+
+	vsprintf_s(&(str[0]), nLength + 1, szFormat, argList);
+	va_end(argList);
+
+	return str.c_str();
+}
+
 
 
 template<typename TArrayType>
