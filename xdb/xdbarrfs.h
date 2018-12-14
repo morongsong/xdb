@@ -12,7 +12,7 @@
 #include <string>
 
 /// xdbarrfs
-template<class TDataType, int nTMaxX = 1024>
+template<class TDataType, int nTMaxX = 1024*32>
 class xdbarrfs
 {
 public:
